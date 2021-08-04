@@ -1,3 +1,5 @@
+console.log('%USERNAME%');
+
 const generateTopic = (subreddit, token) => {
   fetch(`https://oauth.reddit.com/r/${subreddit}/top/?t=week&limit=5`, {
     headers: {
@@ -27,7 +29,7 @@ fetch('https://www.reddit.com/api/v1/access_token', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
-    Authorization: 'Basic ' + btoa(`%process.env.KEY%:%SECRET%`),
+    Authorization: 'Basic ' + btoa(`%KEY%:%SECRET%`),
   },
   body: `grant_type=password&username=%USERNAME%&password=%PASSWORD%&redirect_uri=%REDIRECT_URI%`,
 })
