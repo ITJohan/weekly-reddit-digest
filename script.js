@@ -7,9 +7,16 @@ const generateTopic = (subreddit, token) => {
     .then((result) => result.json())
     .then((data) => {
       root.innerHTML += `<h2>${subreddit}</h2>`;
+      root.innerHTML += '<ul>';
       for (let topic of data.data.children) {
-        root.innerHTML += `<p>${topic.data.title}</p>`;
+        console.log(topic);
+        root.innerHTML += `
+        <li><a href="${topic.data.url}" target="_blank">${topic.data.title
+          .slice(0, 40)
+          .concat('...')}</a></li>
+        `;
       }
+      root.innerHTML += '</ul>';
     })
     .catch((error) => console.log(error));
 };
@@ -20,9 +27,9 @@ fetch('https://www.reddit.com/api/v1/access_token', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
-    Authorization: 'Basic ' + btoa(`${key}:${secret}`),
+    Authorization: 'Basic ' + btoa(`${process.env.KEY}:${process.env.SECRET}`),
   },
-  body: `grant_type=password&username=${username}&password=${password}&redirect_uri=${redirectUri}`,
+  body: `grant_type=password&username=${process.env.USERNAME}&password=${process.env.PASSWORD}&redirect_uri=${REDIRECT_URI}`,
 })
   .then((response) => response.json())
   .then((data) => {
