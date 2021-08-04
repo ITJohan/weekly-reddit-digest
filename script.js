@@ -27,9 +27,9 @@ fetch('https://www.reddit.com/api/v1/access_token', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
-    Authorization: 'Basic ' + btoa(`${process.env.KEY}:${process.env.SECRET}`),
+    Authorization: 'Basic ' + btoa(`%process.env.KEY%:%SECRET%`),
   },
-  body: `grant_type=password&username=${process.env.USERNAME}&password=${process.env.PASSWORD}&redirect_uri=${REDIRECT_URI}`,
+  body: `grant_type=password&username=%USERNAME%&password=%PASSWORD%&redirect_uri=%REDIRECT_URI%`,
 })
   .then((response) => response.json())
   .then((data) => {
