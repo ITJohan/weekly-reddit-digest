@@ -10,13 +10,11 @@ module.exports = async function (context, req) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                Authorization: `Basic ${btoa(`${process.env.KEY}:${process.env.SECRET}`)}`,
+                Authorization: `Basic ${btoa(`${process.env.REDDIT_KEY}:${process.env.REDDIT_SECRET}`)}`,
             },
-            body: `grant_type=password&username=${process.env.USERNAME}&password=${process.env.PASSWORD}&redirect_uri=${process.env.REDIRECT_URI}`,
+            body: `grant_type=password&username=${process.env.REDDIT_USERNAME}&password=${process.env.REDDIT_PASSWORD}&redirect_uri=${process.env.REDIRECT_URI}`,
         });
         const data = await response.json();
-
-        console.log(data)
 
         body += await generateTopic('Science', data.access_token);
         body += await generateTopic('Games', data.access_token);
@@ -24,7 +22,9 @@ module.exports = async function (context, req) {
         body += await generateTopic('Programming', data.access_token);
         
         context.res = {
-            'Content-Type': 'text/html',
+            headers: {
+                'Content-Type': 'text/html',
+            },
             body 
         };
     } catch (error) {
