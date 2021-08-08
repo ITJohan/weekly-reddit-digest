@@ -50,7 +50,6 @@ const generateTopic = async (subreddit, token) => {
     body += `<h2>${subreddit}</h2>`;
     body += '<ul>';
     for (let topic of data.data.children) {
-        console.log(topic);
         body += `
             <li><a href="${topic.data.url}" target="_blank">${topic.data.title
             .slice(0, 40)
